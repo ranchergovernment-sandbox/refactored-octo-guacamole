@@ -1,0 +1,51 @@
+scheme_version: 1
+token: 'P@55word'
+os:
+  ssh_authorized_keys:
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQx5MEPe05gmNcHg0VLeKIzV0gFO/X2S828t1AEC9gp charles@localhost.localdomain
+
+  hostname: mini1
+  modules:
+    - kvm
+    - nvme
+  dns_nameservers:
+    - 192.168.77.11
+    - 192.168.77.12
+  ntp_servers:
+    - 192.168.77.11
+    - 192.168.77.12
+  password: "$6$s8dsOA77aXSB1RhK$t69v8yZrNdESSvEf5ipzhI2dqybJAHhRDsrQvLL4MsDv5.Ld4Yb/CUCuTB9NCT/2EMsfglQDVGiCSyx.wdfVa0"
+install:
+  mode: create
+  management_interface:
+    interfaces:
+    - name: enp3s0f0np0
+    method: static
+    ip: 192.168.85.11
+    subnet_mask: 255.255.255.0
+    gateway: 192.168.85.1
+  force_efi: true
+  device: /dev/nvme0n1
+  data_disk: /dev/nvme1n1
+  harvester:
+    storage_class:
+      replica_count: 2
+  silent: true
+  iso_url: http://192.168.80.5/harvester/harvester-v1.7.1-govt.2-amd64.iso
+  poweroff: false
+  wipe_all_disks: true
+  no_format: false
+  vip: 192.168.85.9
+  vip_mode: static
+  force_mbr: false
+  addons:
+    harvester_vm_import_controller:
+      enabled: false
+    harvester_pcidevices_controller:
+      enabled: true
+    rancher_monitoring:
+      enabled: true
+    rancher_logging:
+      enabled: true
+    harvester_seeder:
+      enabled: false
