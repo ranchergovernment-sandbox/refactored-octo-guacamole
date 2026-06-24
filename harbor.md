@@ -139,3 +139,6 @@
     helm install harbor -n harbor harbor-1.19.1.tgz -f values.yaml
     ```
     * if you did not create the namespace to upload certificates earlier, you will need to add the `--create-namespace` option to the above helm install command.
+
+- Now that you have a Harbor instance running, you will need to log in and create a `project` for each item you are going to sync in.
+- Run through the folders here to sync content from the Internet and then into your Harbor.
