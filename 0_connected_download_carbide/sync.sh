@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . ../env.sh
+. ../versions
 
 sync_product rke2 ${RKE2_VERSION}
 
