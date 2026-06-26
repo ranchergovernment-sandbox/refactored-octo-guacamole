@@ -1,0 +1,7 @@
+apiVersion: content.hauler.cattle.io/v1alpha1
+kind: Images
+metadata:
+  name: minio-images
+spec:
+  images:
+    - name: quay.io/minio/minio:RELEASE.2024-04-18T19-09-19Z
