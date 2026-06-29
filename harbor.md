@@ -24,6 +24,9 @@
     ```bash
     mv haul.tar.zst harbor.tar.zst
     ```
+
+- Copy this hauler file and `/usr/local/bin/hauler` to a bastion host in the disconnected environment.
+
 - SCP the bundle over to each of your Harvester nodes
     ```bash
     scp -O harbor.tar.zst rancher@<IP address of node 1>:

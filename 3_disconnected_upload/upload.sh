@@ -17,6 +17,7 @@ for i in `ls ../1_connected_download_appco/artifacts/`;do
 	upload_product ${i}
 	popd
 done
+
 #for i in `ls ../2_connected_download_thirdparty/artifacts/`;do
 #	pushd ../2_connected_download_thirdparty/artifacts/${i}
 #	upload_product ${i}

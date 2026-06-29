@@ -1,6 +1,6 @@
 #!/bin/bash
 
-offline_registry=harbor.lab.randalllabs.com
+offline_registry=<fqdn of the offline registry>
 platform=linux/amd64
 
 #sync the helm charts

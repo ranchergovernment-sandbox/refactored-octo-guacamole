@@ -1,6 +1,5 @@
 #!/bin/bash
 
-offline_registry=harbor.lab.randalllabs.com
 platform=linux/amd64
 
 #sync the helm charts
