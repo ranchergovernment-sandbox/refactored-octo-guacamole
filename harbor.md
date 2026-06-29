@@ -154,5 +154,7 @@
     - longhornio
     - neuvector
     - rancher
+    - kube-vip
+    - kubevip
 
 - Run through the folders here to sync content from the Internet and then into your Harbor.

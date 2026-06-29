@@ -25,7 +25,7 @@ Once you have updated the `versions` file, you should be ready to run the `synch
 
  Look in the [1_connected_download_appco](1_connected_download_appco/) directory and edit the `sync.sh` script.  Comment out any of these applications that you do not wish to sync at this time.  Once you have the script updated with the applications you want, you can then run the script just like done before.
 
- The [2_connected_download_thirdparty](2_connected_download_thirdparty/) directory has various applications not provided by RGS that you may want to sync into your environment.
+ The [2_connected_download_thirdparty](2_connected_download_thirdparty/) directory has various applications not provided by RGS that you may want to sync into your environment.  You may want to grab the kube-vip from there.  This allows RKE2/Rancher to have an internal VIP similar to how Harvester does it, and not rely on an external load balancer.
  
 Once the connected syncs are completed, you will want to tar up the entire directory where you cloned the git repo, and transfer it to your disconnected environment.
 
