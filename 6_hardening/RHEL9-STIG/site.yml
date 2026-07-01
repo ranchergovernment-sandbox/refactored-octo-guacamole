@@ -1,7 +1,0 @@
----
-
-- name: Apply RHEL9 STIG hardening
-  hosts: "{{ hosts | default('all') }}"
-  become: true
-  roles:
-    - role: "{{ playbook_dir }}"
