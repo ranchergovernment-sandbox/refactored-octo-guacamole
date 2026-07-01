@@ -1,0 +1,48 @@
+#offline charts
+envsubst <<EOF > docs/${cluster_name}/post-deploy-manifests/20-offline-charts.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-plugin-catalog
+  namespace: cattle-ui-plugin-system
+  labels:
+    catalog.cattle.io/ui-extensions-catalog-image: ui-plugin-catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      catalog.cattle.io/ui-extensions-catalog-image: ui-plugin-catalog
+  template:
+    metadata:
+      namespace: cattle-ui-plugin-system
+      labels:
+        catalog.cattle.io/ui-extensions-catalog-image: ui-plugin-catalog
+    spec:
+      containers:
+      - name: server
+        image: ${offline_registry}/rancher/ui-plugin-catalog:4.9.0
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-plugin-catalog-svc
+  namespace: cattle-ui-plugin-system
+spec:
+  ports:
+    - name: catalog-svc-port
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    catalog.cattle.io/ui-extensions-catalog-image: ui-plugin-catalog
+  type: ClusterIP
+---
+apiVersion: catalog.cattle.io/v1
+kind: ClusterRepo
+metadata:
+  name: ui-plugin-catalog-repo
+spec:
+  url: http://ui-plugin-catalog-svc.cattle-ui-plugin-system:8080
+EOF
