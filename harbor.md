@@ -41,6 +41,7 @@
 
 - Back on the bastion host, list contents of the store and extract the harbor helm chart from the harbor store
     ```bash
+    hauler store load --filename harbor.tar.zst
     hauler store list
     hauler store extract hauler/harbor:1.19.1
     ```
