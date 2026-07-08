@@ -5,6 +5,10 @@
     curl -sfL https://get.hauler.dev | bash
     ```
 
+- You will need helm and kubectl to install on your disconnected bastion host.  Rather than duplicate their directions here I will simply post links to their installation.
+    - [helm](https://helm.sh/docs/intro/install/)
+    - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+
 - Log in with Hauler to RGS registry
     ```bash
     hauler login registry.ranchercarbide.dev -u <username> -p <password>
@@ -137,6 +141,16 @@
             secretName: ""
     ```
     * Change the `certSource:` to secret, and put  the name of the secret you just created in the `secretName:` field
+
+- At this time install `helm` and `kubectl` on the bastion.
+
+- You will need the kube config from Harvester.  Click on `Support` in the lower left, then click on the `Download KubeConfig` button in the center of the page.
+
+- Place the files on your bastion.
+    ```bash
+    mkdir ~/.kube
+    mv <location of downloaded kubeconfig> local.yaml ~/.kube/config
+    ```
 
 - You can now install harbor.
     ```bash
