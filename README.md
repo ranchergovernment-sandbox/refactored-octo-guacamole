@@ -10,7 +10,7 @@ First we need to synchronize the content required to deploy Harbor.  After we ha
 ## Harvester
 You will need to download the Harvester installation ISO and transfer it to the disconnected environment.  
 The Harvester Installation ISO can be found [here](https://portal.staging.ranchercarbide.dev/product/harvester)  
-It is recommended that you download the latest `govt` version that is not `experimental`.  
+It is recommended that you download the latest `govt` version.  
 
 [Install Harvester](harvester.md)  
 [Install Harbor in Harvester disconnected](harbor.md)  
@@ -21,7 +21,7 @@ If you have cloned this repo to your connected Linux host, you can use it to dow
 
 The first thing you will want to do is to edit the [versions](versions) file with the versions of the software you wish to bring into your environment.  If you are not certain which versions are available, you can look in the [Carbide Registry](https://portal.staging.ranchercarbide.dev/).  You should have been provided credentials to login to this RGS provided registry.  This is the same site for downloading the Harvester ISO linked above.  
 
-Once you have updated the `versions` file, you should be ready to run the `synch.sh` script inside the [0_connected_download_carbide](0_connected_download_carbide/) directory.  
+Once you have updated the `versions` file, you should be ready to run the `sync.sh` script inside the [0_connected_download_carbide](0_connected_download_carbide/) directory.  
 
  Look in the [1_connected_download_appco](1_connected_download_appco/) directory and edit the `sync.sh` script.  Comment out any of these applications that you do not wish to sync at this time.  Once you have the script updated with the applications you want, you can then run the script just like done before.
 
