@@ -37,12 +37,13 @@
     ```
 - Enable repos  
     ```bash
+    3022 Multi-Linux-Manager-Server/5.1/x86_64 
     3099 Multi-Linux-Manager-Server-SLE/5.1/x86_64
     2774 SL-Micro/6.1/x86_64
     ```
 *The number for the repos MAY bed different on your system, but you will need to get the repo ID number for the above listed repos*  
     ```bash
-    rmt-cli products enable 3099 2774
+    rmt-cli products enable 3022 3099 2774
     ```
 - Mirror repos
     ```bash

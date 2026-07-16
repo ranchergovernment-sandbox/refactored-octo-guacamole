@@ -29,7 +29,7 @@
 - Reboot system
 - Install SUSE Manager with mgradm
     ```bash
-    mgradm install podman mlm.randalllabs.com
+    mgradm install podman <fqdn for MLM server>
     ```
 - Edit `/var/lib/containers/storage/volumes/etc-rhm/_data/rhn.conf` and add the following at the end of the file.
     ```bash
