@@ -35,3 +35,7 @@
     ```bash
     mgradm install podman <fqdn for mlm server>
     ```
+- Update storage to use second disk
+    ```bash
+    mgr-storage-server <second disk>
+    ```
