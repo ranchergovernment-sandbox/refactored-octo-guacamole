@@ -44,6 +44,6 @@ If you synced any third party content, uncomment the third for loop in the `uplo
 ### Extra SUSE products
 [Connected RMT Server](connected_rmt.md)  
 [Connected MLM Server](connected_mlm.md)  
-[Disconnected RMT Server](disconnected_rmt.md)
-[Disconnected MLM Server](disconnected_mlm.md)
+[Disconnected RMT Server](disconnected_rmt.md)  
+[Disconnected MLM Server](disconnected_mlm.md)  
 [MLM content sync](mlm_content_transfer.md)
