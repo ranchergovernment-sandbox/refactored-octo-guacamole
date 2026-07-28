@@ -6,15 +6,10 @@ data "harvester_network" "rke2" {
 	namespace = "harvester-public"
 }
 data "harvester_ssh_key" "default" {
-	name = "default"
-	namespace = "default"
-}
-data "harvester_ssh_key" "will" {
-	name = "will"
-	namespace = "default"
+	name = "<ssh-key-name>"
+	namespace = "harvester-public"
 }
 data "harvester_image" "rke2" {
-	name = "${var.rke2_image}"
+	display_name = "${var.rke2_image}"
 	namespace = "${var.image_namespace}"
 }
-

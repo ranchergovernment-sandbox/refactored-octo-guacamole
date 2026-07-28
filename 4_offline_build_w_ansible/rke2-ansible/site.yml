@@ -5,5 +5,5 @@
   any_errors_fatal: true
   become: true
   roles:
-#    - role: cluster-prep
+    - role: cluster-prep
     - role: rke2

@@ -1,2 +1,4 @@
 artifacts
 store
+.terraform*
+terraform.tfstate*

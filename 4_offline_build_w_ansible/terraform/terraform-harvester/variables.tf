@@ -1,13 +1,13 @@
 #Harvester
 variable "harvester_kubeconfig_path" {
 	type = string
-	default = "/mnt/development/kubeconfig/harvester.yaml"
+	default = "/mnt/development/kubeconfig/disconnected.yaml"
 }
 
 #Domain name
 variable "cluster_domain" {
         type = string
-        default = "demos.local"
+        default = "lab.randalllabs.com"
 }
 # VM Related Stuff
 variable "server_count" {
@@ -44,13 +44,13 @@ variable "agent_disk" {
 }
 variable "rke2_image" {
         type = string
-        default = "almalinux9-rook"
+        default = "rhel-rke2"
 }
 variable "image_namespace" {
         type = string
-        default = "rook-images"
+        default = "harvester-public"
 }
 variable "rke2_network" {
         type = string
-        default = "demos"
+        default = "disc-linux"
 }

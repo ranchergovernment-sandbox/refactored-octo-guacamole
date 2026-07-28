@@ -1,4 +1,3 @@
-envsubst <<EOF > docs/${cluster_name}/post-deploy-manifests/10-kube-vip-install.yaml
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
@@ -7,15 +6,13 @@ metadata:
 spec:
   targetNamespace: kube-system
   insecureSkipTLSVerify: true
-  chart: oci://${offline_registry}/hauler/kube-vip
+  chart: oci://harbor.lab.randalllabs.com/hauler/kube-vip
   version: "0.9.1"
   valuesContent: |-
     config:
-      address: ${mgmt_vip}
+      address: 192.168.88.200
     env:
-      vip_interface: ${mgmt_vip_if}
+      vip_interface: enp1s0
       cp_enable: "true"
       lb_enable: "false"
       vip_leaderelection: "true"
-EOF
-

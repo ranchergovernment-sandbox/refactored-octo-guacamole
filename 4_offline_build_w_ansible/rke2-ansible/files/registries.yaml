@@ -2,9 +2,9 @@
 mirrors:
   "*":
     endpoint:
-      - "https://harbor.apps.harvester.local"
+      - "https://harbor.lab.randalllabs.com"
 configs:
-  "harbor.apps.harvester.local":
+  "harbor.lab.randalllabs.com":
 #    auth:
 #      username: xxxxxx   # this is the registry username
 #      password: xxxxxx   # this is the registry password

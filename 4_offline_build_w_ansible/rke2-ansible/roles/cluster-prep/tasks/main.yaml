@@ -12,11 +12,11 @@
 
 - name: Download and place ca
   ansible.builtin.get_url:
-    url: http://ipa.linuxlabs.local/ipa/config/ca.crt
+    url: http://foreman.randalllabs.com/pub/katello-server-ca.crt
     dest: "{{ item }}"
     mode: 0755
   with_items:
-    - /etc/pki/ca-trust/source/anchors/ipa.crt
+    - /etc/pki/ca-trust/source/anchors/foreman.crt
 
 - name: Update CA
   ansible.builtin.shell: update-ca-trust

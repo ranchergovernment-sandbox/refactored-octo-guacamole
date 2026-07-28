@@ -19,13 +19,13 @@
 
 #RKE2
 export RKE2_MAJOR=1.34
-export RKE2_MINOR=6
+export RKE2_MINOR=5
 
 #Rancher
-export RANCHERVER=2.13.4
+export RANCHERVER=2.14.2
 
 #Hauler Release
-export vHauler=1.4.2
+export Hauler=1.4.2
 
 #Longhorn
 export LONGHORNVER=v1.11.1

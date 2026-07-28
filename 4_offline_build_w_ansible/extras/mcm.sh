@@ -4,24 +4,24 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: cattle-system
----
-apiVersion: v1
-data:
-  cacerts.pem: ${cacert}
-kind: Secret
-metadata:
-  name: tls-ca
-  namespace: cattle-system
----
-apiVersion: v1
-data:
-  tls.crt: ${wildcard_cert}
-  tls.key: ${wildcard_key}
-kind: Secret
-metadata:
-  name: tls-rancher-ingress
-  namespace: cattle-system
-type: kubernetes.io/tls
+#---
+#apiVersion: v1
+#data:
+#  cacerts.pem: ${cacert}
+#kind: Secret
+#metadata:
+#  name: tls-ca
+#  namespace: cattle-system
+#---
+#apiVersion: v1
+#data:
+#  tls.crt: ${wildcard_cert}
+#  tls.key: ${wildcard_key}
+#kind: Secret
+#metadata:
+#  name: tls-rancher-ingress
+#  namespace: cattle-system
+#type: kubernetes.io/tls
 ---
 EOF
 
@@ -41,7 +41,7 @@ spec:
 EOF
 
 #Helm values of MCM
-
+#adjusted to work without a private CA
 envsubst <<EOF > docs/${cluster_name}/post-deploy-manifests/11-mcm-values.yaml
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
@@ -52,13 +52,12 @@ spec:
   valuesContent: |-
     rancherImage: ${offline_registry}/rancher/rancher
     systemDefaultRegistry: ${offline_registry}
-    hostname: mcm.apps.${domain}
+    hostname: mcm.${domain}
     bootstrapPassword: "admin"
     ingress:
       tls:
-        source: "secret"
+        source: "rancher"
     useBundledSystemChart: "true"
-    privateCA: "true"
     extraEnv:
       - name: CATTLE_RKE_METADATA_CONFIG
         value: '{"refresh-interval-minutes":"0","url":"https://releases.rancher.com/kontainer-driver-metadata/release-${RANCHERVER}/data.json"}'

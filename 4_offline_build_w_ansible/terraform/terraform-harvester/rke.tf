@@ -7,12 +7,12 @@ resource "random_id" "server_name" {
 
 resource "harvester_virtualmachine" "rke2-server" {
 	count = "${var.server_count}"
-	name = "el9-demos-${lower(random_id.server_name.hex)}-server-${count.index}"
-	namespace = "demos"
+	name = "mcm-${lower(random_id.server_name.hex)}-server-${count.index}"
+	namespace = "management"
 	description = "RKE Master"
 	cpu = "${var.server_cpu}"
 	memory = "${var.server_memory}Gi"
-	efi = true
+	efi = false
 	secure_boot = false
         tags = {
            ssh-user = "cloud-user"
@@ -36,27 +36,26 @@ resource "harvester_virtualmachine" "rke2-server" {
 		network_data = <<-EOF
                 version: 2
                 ethernets:
-                  eth0:
+                  enp1s0:
                     dhcp4: false
                     addresses:
-                      - 10.0.8.20${count.index + 1}/24
-                    gateway4: 10.0.8.1
+                      - 192.168.88.20${count.index + 1}/24
+                    gateway4: 192.168.88.1
                     nameservers:
-                      search: linuxlabs.local
-                      addresses: 10.0.2.250
-                    dhcp4: true
+                      search: lab.randalllabs.com
+                      addresses: [192.168.77.11, 192.168.77.12]
 		EOF
 	}
 }
 
 resource "harvester_virtualmachine" "rke2-agent" {
 	count = "${var.agent_count}"
-	name = "el9-demos-${lower(random_id.server_name.hex)}-agent-${count.index}"
-	namespace = "demos"
+	name = "mcm-${lower(random_id.server_name.hex)}-agent-${count.index}"
+	namespace = "management"
 	description = "Some RKE nodes"
 	cpu = "${var.agent_cpu}"
 	memory = "${var.agent_memory}Gi"
-	efi = true
+	efi = false
 	secure_boot = false
         tags = {
            ssh-user = "cloud-user"
@@ -80,14 +79,14 @@ resource "harvester_virtualmachine" "rke2-agent" {
 		network_data = <<-EOF
                 version: 2
                 ethernets:
-                  eth0:
+                  enp1s0:
                     dhcp4: false
                     addresses:
-                      - 10.0.8.21${count.index + 1}/24
-                    gateway4: 10.0.8.1
+                      - 192.168.88.21${count.index + 1}/24
+                    gateway4: 192.168.88.1
                     nameservers:
-                      search: linuxlabs.local
-                      addresses: 10.0.2.250
+                      search: lab.randalllabs.com
+                      addresses: [192.168.77.11, 192.168.77.12]
 		EOF
 	}
 }

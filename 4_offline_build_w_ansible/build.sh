@@ -6,8 +6,8 @@
 . cluster_vars/versions.sh
 
 basepath=`pwd`
-cluster_name=demos
-domain=demos.local
+cluster_name=mcm
+domain=lab.randalllabs.com
 #Terraform reset
 #cd terraform-local
 #terraform destroy -auto-approve
@@ -36,11 +36,12 @@ mkdir -p docs/${cluster_name}/post-deploy-manifests
 # Yum Repos for airgap
 #. ${basepath}/extras/repos.sh
 # Documentation
+. ${basepath}/extras/cert-manager.sh
 . ${basepath}/extras/documentation.sh
 # Traefik 80->443 redirect
 . ${basepath}/extras/traefik-redirect.sh
 # Wildcard cert for hubble
-. ${basepath}/extras/tls-wildcard.sh
+#. ${basepath}/extras/tls-wildcard.sh
 . ${basepath}/extras/kube-vip.sh
 # MCM/Banner/UI Plugins
 . ${basepath}/extras/mcm.sh
