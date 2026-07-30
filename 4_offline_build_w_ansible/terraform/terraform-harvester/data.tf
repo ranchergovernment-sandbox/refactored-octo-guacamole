@@ -6,7 +6,7 @@ data "harvester_network" "rke2" {
 	namespace = "harvester-public"
 }
 data "harvester_ssh_key" "default" {
-	name = "<ssh-key-name>"
+	name = "charles-optiplex"
 	namespace = "harvester-public"
 }
 data "harvester_image" "rke2" {

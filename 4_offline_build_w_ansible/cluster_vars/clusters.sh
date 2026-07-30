@@ -17,7 +17,7 @@ export ansible_ssh_key=~/.ssh/id_rsa
 export rancher_rpm_channel=stable
 
 #registry vars
-export offline_registry=<harbor fqdn>
+export offline_registry=harbor.lab.randalllabs.com
 #export offline_registry_user=<null>  #we are currently unauthenticated
 #export offline_registry_pass=<null>  #we are currently unauthenticated
 
@@ -30,13 +30,13 @@ rke2_cluster:
   children:
     rke2_servers:
       hosts:
-        x.x.x.x:
-        x.x.x.x:
-        x.x.x.x:
+        192.168.88.201:
+        192.168.88.202:
+        192.168.88.203:
 
 EOF
 
-export mgmt_vip=x.x.x.x
+export mgmt_vip=192.168.88.200
 export mgmt_vip_if=enp1s0
 
 
@@ -44,7 +44,7 @@ read -d '' repo_config << EOF
     rke2_common_yum_repo:
       name: "rancher-rke2-common-${rancher_rpm_channel}"
       description: "Rancher RKE2 Common ${rancher_rpm_channel}"
-      baseurl: "https://<foreman-satellite fqdn>/pulp/content/<organization>/Library/custom/rke2/Rancher_RKE2_Common_stable_/"
+      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-microos/Rancher_RKE2_Common_stable_/"
       gpgcheck: false
       gpgkey: ""
       enabled: true
@@ -52,7 +52,7 @@ read -d '' repo_config << EOF
     rke2_versioned_yum_repo:
       name: "rancher-rke2-v{{ rke2_version_majmin }}"  # noqa jinja[spacing]
       description: "Rancher RKE2 Version"
-      baseurl: "https://<foreman-satellite fqdn>/pulp/content/<organization>/Library/custom/rke2/Rancher_RKE2_1_34_stable_/"
+      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-microos/Rancher_RKE2_1_34_stable_/"
       gpgkey: ""
       gpgcheck: false
       enabled: true

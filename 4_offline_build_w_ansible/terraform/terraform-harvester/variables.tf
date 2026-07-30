@@ -44,7 +44,7 @@ variable "agent_disk" {
 }
 variable "rke2_image" {
         type = string
-        default = "rhel-rke2"
+        default = "sl-micro-62"
 }
 variable "image_namespace" {
         type = string

@@ -18,8 +18,8 @@
 # Variables
 
 #RKE2
-export RKE2_MAJOR=1.34
-export RKE2_MINOR=5
+export RKE2_MAJOR=1.35
+export RKE2_MINOR=6
 
 #Rancher
 export RANCHERVER=2.14.2
@@ -31,7 +31,7 @@ export Hauler=1.4.2
 export LONGHORNVER=v1.11.1
 
 #Cert Manager
-export CERTMANAGERVER=v1.16.2
+export CERTMANAGERVER=1.20.2
 
 #Kubectl
 export KUBECTLVER=v1.30.0
@@ -54,5 +54,5 @@ export rke2_majmin=${RKE2_MAJOR}
 
 #These are derived from the variables above
 export RKE2VER=v${RKE2_MAJOR}.${RKE2_MINOR}+rke2r1
-export RKE2RPMVER=${RKE2_MAJOR}.${RKE2_MINOR}~rke2r1-0.el9.x86_64
+export RKE2RPMVER=${RKE2_MAJOR}.${RKE2_MINOR}~rke2r1-0.sle.x86_64
 export RKE2VERURL=v${RKE2_MAJOR}.${RKE2_MINOR}%2Brke2r1

@@ -119,9 +119,9 @@ mirrors:
       - "https://${offline_registry}"
 configs:
   "${offline_registry}":
-#    auth:
-#      username: xxxxxx   # this is the registry username
-#      password: xxxxxx   # this is the registry password
+    auth:
+      username: admin   # this is the registry username
+      password: Harbor12345   # this is the registry password
     tls:
 #      cert_file:              # path to the cert file used to authenticate to the registry
 #      key_file:               # path to the key file for the certificate used to authenticate to the registry
