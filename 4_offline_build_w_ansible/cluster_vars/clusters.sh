@@ -44,7 +44,7 @@ read -d '' repo_config << EOF
     rke2_common_yum_repo:
       name: "rancher-rke2-common-${rancher_rpm_channel}"
       description: "Rancher RKE2 Common ${rancher_rpm_channel}"
-      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-microos/Rancher_RKE2_Common_stable_/"
+      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-slemicro/Rancher_RKE2_Common_stable_/"
       gpgcheck: false
       gpgkey: ""
       enabled: true
@@ -52,7 +52,7 @@ read -d '' repo_config << EOF
     rke2_versioned_yum_repo:
       name: "rancher-rke2-v{{ rke2_version_majmin }}"  # noqa jinja[spacing]
       description: "Rancher RKE2 Version"
-      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-microos/Rancher_RKE2_1_34_stable_/"
+      baseurl: "https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rke2-slemicro/Rancher_RKE2_1_34_stable_/"
       gpgkey: ""
       gpgcheck: false
       enabled: true
