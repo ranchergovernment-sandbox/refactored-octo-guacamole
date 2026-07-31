@@ -6,7 +6,7 @@ metadata:
   namespace: kube-system
 spec:
   chart: oci://${offline_registry}/hauler/airgapped-docs
-  version: 0.1.54
+  version: ${AIRGAP_DOCS_CHART_VERSION}
   createNamespace: true
   insecureSkipTLSVerify: true
   targetNamespace: carbide-docs-system
