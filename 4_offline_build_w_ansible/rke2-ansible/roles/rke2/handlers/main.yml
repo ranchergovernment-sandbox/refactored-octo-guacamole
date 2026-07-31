@@ -45,7 +45,3 @@
   throttle: 1
   when:
     - rke2_reboot
-
-- name: Reboot
-  ansible.builtin.reboot:
-    reboot_timeout: 300
