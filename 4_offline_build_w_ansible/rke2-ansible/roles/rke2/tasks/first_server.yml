@@ -3,6 +3,11 @@
 - name: Include task file config.yml
   ansible.builtin.include_tasks: config.yml
 
+- name: Enable rke2-server
+  ansible.builtin.service:
+    enabled: true
+    name: rke2-server
+
 - name: Flush_handlers
   ansible.builtin.meta: flush_handlers
 
