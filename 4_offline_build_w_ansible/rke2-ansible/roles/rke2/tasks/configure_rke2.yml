@@ -46,3 +46,4 @@
     - inventory_hostname in groups['rke2_servers']
 
 - name: Reboot node for new files to take effect
+  ansible.builtin.reboot:
