@@ -26,6 +26,7 @@ mkdir -p files
 rm -fr inventory/${cluster_name}/group_vars
 mkdir -p inventory/${cluster_name}/group_vars
 rm -fr docs/${cluster_name}/post-deploy-manifests
+rm -fr docs/${cluster_name}/pre-deploy-manifests
 mkdir -p docs/${cluster_name}/pre-deploy-manifests
 mkdir -p docs/${cluster_name}/post-deploy-manifests
 

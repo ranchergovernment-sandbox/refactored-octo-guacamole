@@ -44,3 +44,5 @@
     file_path: "{{ rke2_pod_security_admission_config_file_path }}"
   when:
     - inventory_hostname in groups['rke2_servers']
+
+- name: Reboot node for new files to take effect

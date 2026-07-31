@@ -17,4 +17,4 @@
     block: "{{ rke2_config | to_nice_yaml(indent=0) }}"
     create: true
     mode: "0640"
-  notify: Restart {{ service_name }}
+  notify: Reboot
