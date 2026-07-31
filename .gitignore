@@ -2,3 +2,4 @@ artifacts
 store
 .terraform*
 terraform.tfstate*
+inventory
