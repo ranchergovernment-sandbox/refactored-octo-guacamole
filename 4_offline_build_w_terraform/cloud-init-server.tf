@@ -438,15 +438,19 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
       - update-ca-certificates
       - transactional-update pkg install -f -y rke2-server
       - echo "tls-san:" >> /etc/rancher/rke2/config.yaml
-      - echo "- `hostname -f`" >> /etc/rancher/rke2/config.yaml
+      - echo "- `hostname`" >> /etc/rancher/rke2/config.yaml
       - echo "- ${var.lb_ip}" >> /etc/rancher/rke2/config.yaml
       - echo "- ${var.rancher_fqdn}" >> /etc/rancher/rke2/config.yaml
-      - cp -f /usr/share/rke2/rke2-cis-sysctl.conf /etc/sysctl.d/60-rke2-cis.conf
       - systemctl daemon-reload
       - systemctl enable firstboot.service --now
     users:
     - name: cloud-user
       ssh_authorized_keys:
        - ${data.harvester_ssh_key.default.public_key}
+    power_state:
+      mode: reboot
+      timeout: 30
+      condition: True
+
     EOF
 }
