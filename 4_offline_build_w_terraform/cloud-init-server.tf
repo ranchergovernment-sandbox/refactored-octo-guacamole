@@ -458,15 +458,15 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
       - echo "- ${var.lb_ip}" >> /etc/rancher/rke2/config.yaml
       - echo "- ${var.rancher_fqdn}" >> /etc/rancher/rke2/config.yaml
       - systemctl daemon-reload
-      - systemctl enable firstboot.service --now
+      - systemctl enable firstboot.service
     users:
     - name: cloud-user
       ssh_authorized_keys:
        - ${data.harvester_ssh_key.default.public_key}
-    #power_state:
-    #  mode: reboot
-    #  timeout: 30
-    #  condition: True
+    power_state:
+      mode: reboot
+      timeout: 30
+      condition: True
 
     EOF
 }
