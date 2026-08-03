@@ -152,27 +152,6 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-ctlplane" {
                                rancher-alerting-drivers,
                                security-scan,
                                tigera-operator]
-      - path: /etc/yum.repos.d/rancher.repo
-        permissions: '0644'
-        content: |
-          [rke2-local-common]
-          name=Rancher RKE2 Common (stable)
-          baseurl=https://${var.satellite_server}/pulp/content/${var.satellite_organization}/Library/custom/rke2/${var.rke2_common_repo}/
-          enabled=1
-          gpgcheck=0
-          repo_gpgcheck=0
-          [rke2-${var.rke2_version}-local]
-          name=Rancher RKE2 ${var.rke2_version} (stable)
-          baseurl=https://${var.satellite_server}/pulp/content/${var.satellite_organization}/Library/custom/rke2/${var.rke2_versioned_repo}/
-          enabled=1
-          gpgcheck=0
-          repo_gpgcheck=0
-          [rancher-local]
-          name=Rancher (Selinux)
-          baseurl=https://${var.satellite_server}/pulp/content/${var.satellite_organization}/Library/custom/rancher/Rancher/
-          enabled=1
-          gpgcheck=0
-          repo_gpgcheck=0
     runcmd:
       - useradd -r -c "etcd user" -s /sbin/nologin -M etcd
       - echo "cloud-user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-cloud-init-users
