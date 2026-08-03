@@ -12,11 +12,7 @@ variable "cluster_domain" {
 # VM Related Stuff
 variable "server_count" {
         type = number
-        default = 3
-}
-variable "agent_count" {
-        type = number
-        default = 0
+        default = 1
 }
 variable "server_cpu" {
         type = number
@@ -45,7 +41,7 @@ variable "rke2_network" {
 #RKE2 Configs
 variable "join_token" {
 	type = string
-	default = "<create a token here>"
+	default = "ThisIsANodeJoinToken"
 }
 
 variable "rke2_version" {
@@ -76,13 +72,9 @@ variable "ui-plugin-catalog_version" {
         type = string
         default = "4.28.0"
 }
-variable "cluster_subnet" {
-        type = string
-        default = "<cluster ip space>"
-}
 variable "lb_ip" {
         type = string
-        default = "<load balancer ip>"
+        default = "192.168.88.200"
 }
 
 

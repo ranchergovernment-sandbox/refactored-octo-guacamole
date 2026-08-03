@@ -385,6 +385,42 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
                                security-scan,
                                tigera-operator]
 
+      - path: /etc/systemd/system/firstboot.service
+        permissions: '0644'
+        content: |
+          [Unit]
+          Description=START_RKE2
+          ConditionPathExists=/root/firstboot
+          Before=getty@tty6.service gdm.service
+         
+          [Service]
+          Type=oneshot
+          RemainAfterExit=yes
+          TTYPath=/dev/tty6
+          ExecStartPre=/usr/bin/sleep 5
+          ExecStartPre=/usr/bin/chvt 6
+          ExecStartPre=/usr/bin/clear
+          ExecStart=/opt/enable_rke2.sh
+          ExecStopPost=/usr/bin/chvt 1
+          ExecStopPost=/usr/bin/rm /root/firstboot
+          TimeoutSec=0
+          TimeoutStopSec=10
+          StandardOutput=tty
+          StandardInput=tty
+          StandardError=tty
+         
+          [Install]
+          WantedBy=default.target
+      - path: /root/firstboot
+        permissions: '0644'
+        content: |
+          #This is a temporary lockfile so we can start rke2 server
+
+      - path: /opt/enable_rke2.sh
+        permissions: '0755'
+        content: |
+          #!/bin/bash
+          systemctl enable rke2-server --now
     zypper:
       config: {download.use_deltarpm: true, reposdir: /etc/zypp/repos.d, servicesdir: /etc/zypp/services.d}
       repos:
