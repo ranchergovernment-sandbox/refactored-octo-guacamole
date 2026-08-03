@@ -421,6 +421,20 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
         content: |
           #!/bin/bash
           systemctl enable rke2-server --now
+      
+      - path: /etc/sysctl.d/60-rke2-cis.conf
+        permissions: '0644'
+        content: |
+          vm.panic_on_oom=0
+          vm.overcommit_memory=1
+          kernel.panic_on_oops=1
+
+      - path: /etc/sysctl.d/61-fs-max.conf
+        permissions: '0644'
+        content: |
+          fs.inotify.max_user_instances=8192
+          fs.inotify.max_user_watches=524288
+          
     zypper:
       config: {download.use_deltarpm: true, reposdir: /etc/zypp/repos.d, servicesdir: /etc/zypp/services.d}
       repos:
