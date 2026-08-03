@@ -75,7 +75,7 @@ resource "harvester_virtualmachine" "rke2-ctlplane" {
 		auto_delete = true
 	}
 	cloudinit {
-		user_data_secret_name = harvester_cloudinit_secret.cloud-config-rke2-agent.name
+		user_data_secret_name = harvester_cloudinit_secret.cloud-config-rke2-ctlplane.name
 		network_data = <<-EOF
                 version: 2
                 ethernets:
