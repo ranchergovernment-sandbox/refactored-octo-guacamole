@@ -403,7 +403,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
           ExecStart=/opt/enable_rke2.sh
           ExecStopPost=/usr/bin/chvt 1
           ExecStopPost=/usr/bin/rm /root/firstboot
-          ExecStopPost=/usr/sbin/reboot
+          #ExecStopPost=/usr/sbin/reboot
           TimeoutSec=0
           TimeoutStopSec=10
           StandardOutput=tty
