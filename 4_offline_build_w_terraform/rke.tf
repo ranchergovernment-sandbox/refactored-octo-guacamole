@@ -53,8 +53,8 @@ resource "harvester_virtualmachine" "rke2-ctlplane" {
 	name = "mcm-${lower(random_id.server_name.hex)}-ctlplane-${count.index}"
 	namespace = "management"
 	description = "Some RKE nodes"
-	cpu = "${var.agent_cpu}"
-	memory = "${var.agent_memory}Gi"
+	cpu = "${var.server_cpu}"
+	memory = "${var.server_memory}Gi"
 	efi = true
 	secure_boot = false
         tags = {
@@ -68,7 +68,7 @@ resource "harvester_virtualmachine" "rke2-ctlplane" {
 	disk {
 		name = "rootdisk"
 		type = "disk"
-		size = "${var.agent_disk}Gi"
+		size = "${var.server_disk}Gi"
 		bus = "virtio"
 		image = data.harvester_image.rke2.id
 		boot_order = 1
