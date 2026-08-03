@@ -56,10 +56,6 @@ variable "rancher_fqdn" {
         type = string
         default = "mlm.lab.randalllabs.com"
 }
-variable "cluster_domain" {
-        type = string
-        default = "lab.randalllabs.com"
-}
 variable "cluster_namespace" {
         type = string
         default = "management"
