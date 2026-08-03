@@ -429,6 +429,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
         content: |
           vm.panic_on_oom=0
           vm.overcommit_memory=1
+          kernel.panic=10
           kernel.panic_on_oops=1
 
       - path: /etc/sysctl.d/61-fs-max.conf
