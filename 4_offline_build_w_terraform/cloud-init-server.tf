@@ -403,6 +403,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
           ExecStart=/opt/enable_rke2.sh
           ExecStopPost=/usr/bin/chvt 1
           ExecStopPost=/usr/bin/rm /root/firstboot
+          ExecStopPost=/usr/sbin/reboot
           TimeoutSec=0
           TimeoutStopSec=10
           StandardOutput=tty
@@ -411,6 +412,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
          
           [Install]
           WantedBy=default.target
+
       - path: /root/firstboot
         permissions: '0644'
         content: |
@@ -434,7 +436,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
         content: |
           fs.inotify.max_user_instances=8192
           fs.inotify.max_user_watches=524288
-          
+
     zypper:
       config: {download.use_deltarpm: true, reposdir: /etc/zypp/repos.d, servicesdir: /etc/zypp/services.d}
       repos:
@@ -461,10 +463,10 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-server" {
     - name: cloud-user
       ssh_authorized_keys:
        - ${data.harvester_ssh_key.default.public_key}
-    power_state:
-      mode: reboot
-      timeout: 30
-      condition: True
+    #power_state:
+    #  mode: reboot
+    #  timeout: 30
+    #  condition: True
 
     EOF
 }
