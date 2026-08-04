@@ -1,6 +1,6 @@
 #!/bin/bash
 
-envsubst <<EOF > ${basepath}/rke2-ansible/docs/${cluster_name}/post-deploy-manifests/100-dod-banner.yaml
+envsubst <<EOF > ${basepath}/slem-ansible/docs/${cluster_name}/post-deploy-manifests/100-dod-banner.yaml
 apiVersion: management.cattle.io/v3
 customized: false
 default: '{}'

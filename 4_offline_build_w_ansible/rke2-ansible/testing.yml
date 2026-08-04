@@ -1,6 +1,0 @@
----
-- name: Testing play
-  hosts: all
-  become: true
-  roles:
-    - role: testing

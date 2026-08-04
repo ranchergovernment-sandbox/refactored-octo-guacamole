@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Install RKE2-Server RPM
+
+- name: Reboot nodes
+
+- name: Create Config files
+
+- name: Copy Manifest files
+
+- name: Reboot nodes
+
+- name: Start first node
+
+- name: Wait for first node to be active
+
+- name: Start other nodes

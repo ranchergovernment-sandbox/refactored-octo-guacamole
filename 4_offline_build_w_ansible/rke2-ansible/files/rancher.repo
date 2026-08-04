@@ -1,6 +1,0 @@
-[rancher-local]
-name=rancher-local
-baseurl=https://foreman.randalllabs.com/pulp/content/Randall_Labs/Library/custom/rancher/Rancher/
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
