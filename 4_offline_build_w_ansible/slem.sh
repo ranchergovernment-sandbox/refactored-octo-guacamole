@@ -5,7 +5,9 @@
 . cluster_vars/clusters.sh
 . cluster_vars/versions.sh
 
-
+basepath=`pwd`
+cluster_name=mcm
+domain=lab.randalllabs.com
 
 cd slem-ansible
 #ansible-galaxy collection install -r requirements.yml
