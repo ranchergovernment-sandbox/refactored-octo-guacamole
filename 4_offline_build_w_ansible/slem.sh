@@ -106,4 +106,4 @@ configs:
 EOF
 
 
-ansible-playbook -u ${ansible_ssh_user} --key-file=${ansible_ssh_key} -i inventory/${cluster_name}/hosts.yml site.yml -b
+ansible-playbook -u ${ansible_ssh_user} --key-file=${ansible_ssh_key} -i inventory/${cluster_name}/hosts.yml slem-ansible/site.yml -b
