@@ -1,0 +1,28 @@
+ingress-controller: traefik
+kube-apiserver-arg:
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+- authorization-mode=RBAC,Node
+- anonymous-auth=false
+- audit-log-mode=blocking-strict
+- audit-log-maxage=30
+- audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
+- audit-log-path=/var/lib/rancher/rke2/server/logs/audit.log
+kube-controller-manager-arg:
+- bind-address=127.0.0.1
+- use-service-account-credentials=true
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+kube-scheduler-arg:
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+kubelet-arg:
+- protect-kernel-defaults=true
+- read-only-port=0
+- authorization-mode=Webhook
+- streaming-connection-idle-timeout=5m
+pod-security-admission-config-file: /etc/rancher/rke2/pod-security-admission-config.yaml
+profile: cis
+selinux: true
+server: https://192.168.88.201:9345
+token: K1012b674e27b2ddc7b065b8253c467101bc95b25d4c99e7e8303feaf663ab70b76::server:4fb89181f33a2ce8737cd31ae956c316

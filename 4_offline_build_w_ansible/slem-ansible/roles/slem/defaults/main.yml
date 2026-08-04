@@ -1,3 +1,4 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# defaults file for slem
+rke2_manifest_config_directory: ""
+rke2_manifest_config_post_run_directory: ""

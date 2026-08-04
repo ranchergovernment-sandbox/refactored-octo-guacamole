@@ -1,17 +1,64 @@
 #SPDX-License-Identifier: MIT-0
 ---
+
+- name: Populate service facts
+  ansible.builtin.service_facts: {}
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Set as server
+  ansible.builtin.set_fact:
+    service_name: rke2-server
+  when:
+    - inventory_hostname in groups['rke2_servers']
+
 - name: Install RKE2-Server RPM
+  ansible.builtin.shell:  "transactional-update pkg install -f -y rke2-server"
 
 - name: Reboot nodes
+  ansible.builtin.reboot:
+
+
+- name: Copy systemctl file for kernel hardening for yum installs
+  ansible.builtin.copy:
+    src: /usr/share/rke2/rke2-cis-sysctl.conf
+    dest: /etc/sysctl.d/60-rke2-cis.conf
+    remote_src: true
+    mode: 0600
 
 - name: Create Config files
+  ansible.builtin.copy:
+    src: config.yaml
+    dest: /etc/rancher/rke2/config.yaml
 
-- name: Copy Manifest files
+- name: Copy audit policy
+  ansible.builtin.copy:
+    src: audit-policy
+    dest: /etc/rancher/rke2/audit-policy.yaml
+
+- name: Copy Pod security file
+  ansible.builtin.copy:
+    src: pod-security-admission-config.yaml
+    dest: /etc/rancher/rke2/pod-security-admission-config.yaml
+
+- name: Copy registries.yaml
+  ansible.builtin.template:
+    src: registries.yaml.j2
+    dest: /etc/rancher/rke2/registries.yaml
+
+- name: Include task file add_manifest_addons.yml
+  ansible.builtin.include_tasks: add_manifest_addons.yml
+  vars:
+    source_directory: "{{ rke2_manifest_config_directory }}"
+    destination_directory: /var/lib/rancher/rke2/server/manifests/ansible_managed_0
 
 - name: Reboot nodes
+  ansible.builtin.reboot:
 
-- name: Start first node
+#- name: Start first node
 
-- name: Wait for first node to be active
+#- name: Wait for first node to be active
 
-- name: Start other nodes
+#- name: Start other nodes
