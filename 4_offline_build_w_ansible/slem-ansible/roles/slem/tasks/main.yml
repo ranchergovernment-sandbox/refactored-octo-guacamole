@@ -35,7 +35,7 @@
 
 - name: Copy audit policy
   ansible.builtin.copy:
-    src: audit-policy
+    src: audit-policy.yaml
     dest: /etc/rancher/rke2/audit-policy.yaml
 
 - name: Copy Pod security file

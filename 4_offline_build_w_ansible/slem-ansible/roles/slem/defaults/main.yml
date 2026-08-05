@@ -2,3 +2,4 @@
 ---
 rke2_manifest_config_directory: ""
 rke2_manifest_config_post_run_directory: ""
+offline_registry: "{{ lookup('ansible.builtin.env', 'offline_registry') }}"
