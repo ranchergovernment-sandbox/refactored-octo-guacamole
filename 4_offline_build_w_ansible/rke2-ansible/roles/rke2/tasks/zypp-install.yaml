@@ -1,0 +1,6 @@
+---
+- name: Install RKE2-Server RPM
+  ansible.builtin.shell:  "transactional-update pkg install -f -y rke2-server"
+
+- name: Reboot nodes
+  ansible.builtin.reboot:

@@ -1,0 +1,9 @@
+---
+
+- name: RKE2 play
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  roles:
+#    - role: cluster-prep
+    - role: rke2

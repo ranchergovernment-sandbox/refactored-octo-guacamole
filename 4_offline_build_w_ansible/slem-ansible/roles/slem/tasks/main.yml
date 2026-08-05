@@ -53,7 +53,11 @@
   vars:
     source_directory: "{{ rke2_manifest_config_directory }}"
     destination_directory: /var/lib/rancher/rke2/server/manifests/ansible_managed_0
-
+  when:
+    - rke2_manifest_config_directory is defined
+    - rke2_manifest_config_directory | length > 0
+    - inventory_hostname in groups['rke2_servers'][0]
+    
 - name: Reboot nodes
   ansible.builtin.reboot:
 

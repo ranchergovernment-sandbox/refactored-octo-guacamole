@@ -1,0 +1,52 @@
+---
+#for neuvector
+- name: Add inotify max to sysctl so neuvector can scan systems
+  ansible.builtin.blockinfile:
+     path: /etc/sysctl.d/61-fs-max.conf
+     insertafter: EOF
+     create: true
+     block: |
+                  fs.inotify.max_user_instances=8192
+                  fs.inotify.max_user_watches=524288
+                  fs.filemax=5000
+
+- name: Download and place ca
+  ansible.builtin.get_url:
+    url: http://ipa.linuxlabs.local/ipa/config/ca.crt
+    dest: "{{ item }}"
+    mode: 0755
+  with_items:
+    - /etc/pki/ca-trust/source/anchors/ipa.crt
+
+- name: Update CA
+  ansible.builtin.shell: update-ca-trust
+
+#- name: Disable all repos
+#  ansible.builtin.shell: yum config-manager --disable "*"
+
+- name: Create a local rancher repo
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/files/rancher.repo"
+    dest: /etc/yum.repos.d/rancher.repo
+
+- name: Install Rancher SELinux
+  ansible.builtin.package:
+    name: rancher-selinux
+    state: present
+
+#- name: Install iscsid
+#  ansible.builtin.package:
+#    name: iscsi-initiator-utils
+#    state: present
+
+#- name: start iscsid
+#  ansible.builtin.service:
+#    name: iscsid
+#    state: started
+#    enabled: true
+
+#- name: Copy helm to the downstream cluster
+#  ansible.builtin.copy:
+#    src: "{{ local_archive_path }}/helm/helm"
+#    dest: "/usr/bin/helm"
+#    mode: 0755
