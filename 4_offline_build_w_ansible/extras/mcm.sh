@@ -4,24 +4,24 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: cattle-system
-#---
-#apiVersion: v1
-#data:
-#  cacerts.pem: ${cacert}
-#kind: Secret
-#metadata:
-#  name: tls-ca
-#  namespace: cattle-system
-#---
-#apiVersion: v1
-#data:
-#  tls.crt: ${wildcard_cert}
-#  tls.key: ${wildcard_key}
-#kind: Secret
-#metadata:
-#  name: tls-rancher-ingress
-#  namespace: cattle-system
-#type: kubernetes.io/tls
+---
+apiVersion: v1
+data:
+  cacerts.pem: ${cacert}
+kind: Secret
+metadata:
+  name: tls-ca
+  namespace: cattle-system
+---
+apiVersion: v1
+data:
+  tls.crt: ${wildcard_cert}
+  tls.key: ${wildcard_key}
+kind: Secret
+metadata:
+  name: tls-rancher-ingress
+  namespace: cattle-system
+type: kubernetes.io/tls
 ---
 EOF
 
@@ -56,8 +56,9 @@ spec:
     bootstrapPassword: "admin"
     ingress:
       tls:
-        source: "rancher"
+        source: "secret"
     useBundledSystemChart: "true"
+    privateCA: "true"
     extraEnv:
       - name: CATTLE_RKE_METADATA_CONFIG
         value: '{"refresh-interval-minutes":"0","url":"https://releases.rancher.com/kontainer-driver-metadata/release-${RANCHERVER}/data.json"}'

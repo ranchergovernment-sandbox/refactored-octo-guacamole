@@ -6,7 +6,7 @@ data "harvester_network" "rke2" {
 	namespace = "harvester-public"
 }
 data "harvester_ssh_key" "default" {
-	name = "bastion"
+	name = "charles-tumbleweed"
 	namespace = "harvester-public"
 }
 data "harvester_image" "rke2" {

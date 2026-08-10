@@ -12,6 +12,7 @@ resource "harvester_cloudinit_secret" "cloud-config-rke2-agent" {
       - hostnamectl set-hostname `hostname -s`.${var.cluster_domain}
       - curl -o /etc/pki/trust/anchors/foreman.crt http://foreman.randalllabs.com/pub/katello-server-ca.crt
       - curl -o /etc/pki/trust/anchors/adca.cer http://192.168.80.7/adca.cer
+      - curl -o /etc/pki/trust/anchors/mlm.crt http://mlm.randalllabs.com/pub/RHN-ORG-TRUSTED-SSL-CERT
       - update-ca-certificates
     users:
     - name: cloud-user

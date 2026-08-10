@@ -42,7 +42,7 @@ mkdir -p docs/${cluster_name}/post-deploy-manifests
 # Traefik 80->443 redirect
 . ${basepath}/extras/traefik-redirect.sh
 # Wildcard cert for hubble
-#. ${basepath}/extras/tls-wildcard.sh
+. ${basepath}/extras/tls-wildcard.sh
 . ${basepath}/extras/kube-vip.sh
 # MCM/Banner/UI Plugins
 . ${basepath}/extras/mcm.sh

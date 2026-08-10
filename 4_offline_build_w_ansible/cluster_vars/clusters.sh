@@ -3,13 +3,13 @@
 #paths
 export local_archive_path=/opt/rancher/
 export remote_archive_path=/opt/rancher/
-#export domain=<fqdn>
-#export cacert_path=<path/to/cacert>
-#export cacert=`cat ${cacert_path} | base64 | tr -d "\n"`
-#export cert_path=</path/to/crt>
-#export wildcard_cert=`cat ${cert_path} | base64 | tr -d "\n"`
-#export key_path=</path/to/key>
-#export wildcard_key=`cat ${key_path} | base64 | tr -d "\n"`
+export domain=lab.randalllabs.com
+export cacert_path=/home/charles/labcerts/lab_ca.cer
+export cacert=`cat ${cacert_path} | base64 | tr -d "\n"`
+export cert_path=/home/charles/labcerts/lab-wild.cer
+export wildcard_cert=`cat ${cert_path} | base64 | tr -d "\n"`
+export key_path=/home/charles/labcerts/lab.key
+export wildcard_key=`cat ${key_path} | base64 | tr -d "\n"`
 
 #ansible vars
 export ansible_ssh_user=cloud-user
@@ -30,13 +30,13 @@ rke2_cluster:
   children:
     rke2_servers:
       hosts:
-        192.168.88.201:
-        192.168.88.202:
-        192.168.88.203:
+        192.168.80.201:
+        192.168.80.202:
+        192.168.80.203:
 
 EOF
 
-export mgmt_vip=192.168.88.200
+export mgmt_vip=192.168.80.200
 export mgmt_vip_if=enp1s0
 
 

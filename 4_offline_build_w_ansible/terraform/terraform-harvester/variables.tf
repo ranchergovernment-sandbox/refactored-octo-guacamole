@@ -1,13 +1,13 @@
 #Harvester
 variable "harvester_kubeconfig_path" {
 	type = string
-	default = "/mnt/development/kubeconfig/disconnected.yaml"
+	default = "/mnt/development/kubeconfig/connected.yaml"
 }
 
 #Domain name
 variable "cluster_domain" {
         type = string
-        default = "lab.randalllabs.com"
+        default = "randalllabs.com"
 }
 # VM Related Stuff
 variable "server_count" {
@@ -52,5 +52,5 @@ variable "image_namespace" {
 }
 variable "rke2_network" {
         type = string
-        default = "disc-linux"
+        default = "linux"
 }

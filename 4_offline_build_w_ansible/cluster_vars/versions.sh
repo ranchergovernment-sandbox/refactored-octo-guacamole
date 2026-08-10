@@ -22,7 +22,7 @@ export RKE2_MAJOR=1.35
 export RKE2_MINOR=6
 
 #Rancher
-export RANCHERVER=2.14.2
+export RANCHERVER=2.14.4
 
 #Hauler Release
 export Hauler=1.4.2

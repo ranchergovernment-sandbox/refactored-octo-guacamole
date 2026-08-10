@@ -39,8 +39,8 @@ resource "harvester_virtualmachine" "rke2-server" {
                   enp1s0:
                     dhcp4: false
                     addresses:
-                      - 192.168.88.20${count.index + 1}/24
-                    gateway4: 192.168.88.1
+                      - 192.168.80.20${count.index + 1}/24
+                    gateway4: 192.168.80.1
                     nameservers:
                       search: lab.randalllabs.com
                       addresses: [192.168.77.11, 192.168.77.12]
@@ -82,8 +82,8 @@ resource "harvester_virtualmachine" "rke2-agent" {
                   enp1s0:
                     dhcp4: false
                     addresses:
-                      - 192.168.88.21${count.index + 1}/24
-                    gateway4: 192.168.88.1
+                      - 192.168.80.21${count.index + 1}/24
+                    gateway4: 192.168.80.1
                     nameservers:
                       search: lab.randalllabs.com
                       addresses: [192.168.77.11, 192.168.77.12]
