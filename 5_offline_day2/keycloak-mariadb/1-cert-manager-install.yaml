@@ -1,0 +1,18 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: cert-manager
+  namespace: kube-system
+spec:
+  targetNamespace: cert-manager
+  createNamespace: true
+  chart: oci://harbor.lab.randalllabs.com/hauler/cert-manager
+  version: 1.21.1
+  createNamespace: true
+  insecureSkipTLSVerify: true
+  valuesContent: |-
+    crds:
+      enabled: true
+    global:
+      imageRegistry: harbor.lab.randalllabs.com

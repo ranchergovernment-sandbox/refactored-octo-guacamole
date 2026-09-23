@@ -1,0 +1,55 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: mariadb
+  namespace: kube-system
+spec:
+  targetNamespace: keycloak
+  chart: oci://harbor.lab.randalllabs.com/hauler/mariadb
+  version: 1.0.0
+  createNamespace: true
+  insecureSkipTLSVerify: true
+  valuesContent: |-
+    global:
+      imageRegistry: harbor.lab.randalllabs.com
+      security:
+        allowInsecureImages: true
+      storageClass: ""
+    auth:
+      # -- Create the keycloak database on startup
+      database: "keycloak"
+    
+      # -- Create the specific user for Keycloak
+      username: "keycloak"
+    
+      # -- Leave these empty as they are overridden by existingSecret
+      password: ""
+      rootPassword: ""
+    
+      # -- The name of the secret we created above
+      existingSecret: "mariadb-auth"
+    
+      # -- Mapping the keys in the Secret to the chart logic
+      passwordKey: "mariadb-password"
+      rootPasswordKey: "mariadb-root-password"
+      replicationPasswordKey: "mariadb-replication-password"
+    
+      replicationUsername: repl
+    podTemplates:
+      containers:
+        mariadb:
+          env:
+            MARIADB_USER:
+              enabled: true
+              value: "keycloak"
+            MARIADB_DATABASE:
+              enabled: true
+              value: "keycloak"
+            MARIADB_PASSWORD:
+              enabled: true
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-auth
+                  key: mariadb-password
+

@@ -4,3 +4,6 @@ terraform.tfstate*
 inventory
 4_offline_build_w_ansible/slem-ansible/files
 4_offline_build_w_ansible/slem-ansible/docs
+AllCerts.zip
+DOD*
+DoD*

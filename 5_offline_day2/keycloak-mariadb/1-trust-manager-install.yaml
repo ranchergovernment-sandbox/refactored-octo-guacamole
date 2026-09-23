@@ -1,0 +1,21 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: trust-manager
+  namespace: kube-system
+spec:
+  targetNamespace: cert-manager
+  createNamespace: true
+  chart: oci://harbor.lab.randalllabs.com/hauler/trust-manager
+  version: v0.20.2
+  createNamespace: true
+  insecureSkipTLSVerify: true
+  valuesContent: |-
+    image:
+      registry: harbor.lab.randalllabs.com
+      repository: jetstack/trust-manager
+      tag: v0.20.2
+    app:
+      trust:
+        namespace: cert-manager

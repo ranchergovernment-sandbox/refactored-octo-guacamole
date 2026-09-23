@@ -1,0 +1,149 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: keycloakx
+  namespace: kube-system
+spec:
+  chart: oci://harbor.lab.randalllabs.com/hauler/keycloakx
+  createNamespace: true
+  insecureSkipTLSVerify: true
+  targetNamespace: keycloak
+  valuesContent: |-
+    image:
+      repository: harbor.lab.randalllabs.com/containers/keycloak
+      tag: 26.6.3
+    command:
+      - "/bin/bash"
+      - "-c"
+    args:
+      - '/usr/share/keycloak/bin/kc.sh build && /usr/share/keycloak/bin/kc.sh start --optimized'
+    extraEnv: |-
+      - name: KC_HTTP_ENABLED
+        value: "true"
+      - name: KC_HOSTNAME_DEBUG
+        value: "true"
+      - name: KC_BOOTSTRAP_ADMIN_USERNAME
+        value: "admin"
+      - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+        value: "password"
+      - name: KEYCLOAK_PRODUCTION
+        value: "true"
+      - name: KC_HOSTNAME
+        value: "keycloak.lab.randalllabs.com"
+      - name: KC_HOSTNAME_STRICT
+        value: "true"
+      - name: KC_HTTPS_CERTIFICATE_FILE
+        value: "/secrets/tls.crt"
+      - name: KC_HTTPS_CERTIFICATE_KEY_FILE
+        value: "/secrets/tls.key"
+      - name: JAVA_OPTS_APPEND
+        value: "-Djgroups.dns.query=keycloak-keycloakx-headless"
+      - name: KC_LOG_LEVEL
+        value: "org.keycloak.events:DEBUG,org.infinispan:DEBUG,org.jgroups:DEBUG"
+      - name: KC_HTTPS_TRUST_STORE_FILE
+        value: "/opt/keycloak/conf/kc-truststore.jks"
+      - name: KC_HTTPS_TRUST_STORE_PASSWORD
+        value: "changeit"
+      - name: KC_HTTPS_CLIENT_AUTH 
+        value: "request"
+
+
+    # Add additional volumes, e. g. for custom themes
+    extraVolumes: |-
+      - name: kc-truststore
+        configMap:
+          name: dod-cert-bundle
+      - name: kc-certs
+        secret:
+          secretName: tls-keycloak
+
+    # Add additional volumes mounts, e. g. for custom themes
+    extraVolumeMounts: |-
+      - mountPath: "/opt/keycloak/conf/"
+        name: kc-truststore
+        readOnly: true
+      - mountPath: "/secrets/"
+        name: kc-certs
+
+    ingress:
+      servicePort: https
+      # If , an Ingress is created
+      enabled: true
+      # The name of the Ingress Class associated with this ingress
+      ingressClassName: "nginx"
+      # Ingress annotations
+      annotations:
+        ## Resolve HTTP 502 error using ingress-nginx:
+        ## See https://www.ibm.com/support/pages/502-error-ingress-keycloak-response
+         nginx.ingress.kubernetes.io/use-forwarded-headers: 'true'
+         nginx.ingress.kubernetes.io/proxy-buffer-size: 128k
+         nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      rules:
+        - host: 'keycloak.lab.randalllabs.com'
+          # Paths for the host
+          paths:
+            - path: '{{ tpl .Values.http.relativePath $ | trimSuffix "/" }}/'
+              pathType: Prefix
+      # TLS configuration
+      tls:
+        - hosts:
+            - 'keycloak.lab.randalllabs.com'
+          secretName: "tls-keycloak"
+      console:
+         # If , an Ingress is created for console path only
+        enabled: false
+        rules:
+          - host: '{{ .Release.Name }}-console.lab.randalllabs.com'
+            # Paths for the host
+            paths:
+              - path: '{{ tpl .Values.http.relativePath $ | trimSuffix "/" }}/admin'
+                pathType: Prefix
+    dbchecker:
+      image:
+        repository: harbor.lab.randalllabs.com/containers/bci-busybox
+        tag: 15.7-19.10
+      enabled: true
+
+    database:
+      existingSecret: "mariadb-auth"
+      existingSecretKey: "mariadb-password"
+      vendor: mariadb
+      hostname: 'mariadb'
+      port: 3306
+      database: keycloak
+      username: keycloak
+
+    cache:
+      stack: kubernetes
+
+    proxy:
+      mode: xforwarded
+
+    livenessProbe: |
+      httpGet:
+        path: '{{ tpl .Values.http.relativePath $ | trimSuffix "/" }}/health/live'
+        port: '{{ .Values.http.internalPort }}'
+        scheme: 'HTTPS'
+      initialDelaySeconds: 0
+      timeoutSeconds: 5
+
+    readinessProbe: |
+      httpGet:
+        path: '{{ tpl .Values.http.relativePath $ | trimSuffix "/" }}/health/ready'
+        port: '{{ .Values.http.internalPort }}'
+        scheme: 'HTTPS'
+      initialDelaySeconds: 10
+      timeoutSeconds: 1
+
+    startupProbe: |
+      httpGet:
+        path: '{{ tpl .Values.http.relativePath $ | trimSuffix "/" }}/health'
+        port: '{{ .Values.http.internalPort }}'
+        scheme: 'HTTPS'
+      initialDelaySeconds: 15
+      timeoutSeconds: 1
+      failureThreshold: 60
+      periodSeconds: 5
+
